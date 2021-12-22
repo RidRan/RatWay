@@ -5,11 +5,12 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public string test;
+    public Word difficulty;
     // Start is called before the first frame update
     void Start()
     {
-
+        GetInputTextBox().GetComponent<TMP_InputField>().Select();
+        GetInputTextBox().GetComponent<TMP_InputField>().ActivateInputField();
     }
 
     // Update is called once per frame
@@ -38,4 +39,6 @@ public class GameController : MonoBehaviour
     {
         return gameObject.transform.GetChild(5).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
     }
+
+
 }
