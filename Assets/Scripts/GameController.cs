@@ -10,8 +10,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetInputTextBox().GetComponent<TMP_InputField>().Select();
-        GetInputTextBox().GetComponent<TMP_InputField>().ActivateInputField();
+        FocusInputTextBox();
     }
 
     // Update is called once per frame
