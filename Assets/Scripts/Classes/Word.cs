@@ -7,16 +7,28 @@ public class Word
 	public List<string> synonyms;
 	public string description;
 
-	public Word(List<string> s, string d)
+	public Word(string w)
     {
-		word = "Word";
-		synonyms = s;
-		description = d;
+		word = w;
+		synonyms = new List<string>();
+		description = "";
     }
+
+	public Word(string w)
+	{
+		word = w;
+		synonyms = new List<string>();
+		description = "";
+	}
+
+	public static string Normalize(string s)
+    {
+		return s.ToLower().Trim();
+    } 
 
 	public bool Match(string s)
     {
-		if (s == word)
+		if (Normalize(s) == Normalize(word))
         {
 			return true;
         }

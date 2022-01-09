@@ -7,11 +7,14 @@ public class GameController : MonoBehaviour
 {
     public Word difficulty;
     public bool prompted = false;
+    public Vector2 playerPosition = Vector2.zero;
     // Start is called before the first frame update
     void Start()
     {
-        GetInputTextBox().GetComponent<TMP_InputField>().Select();
-        GetInputTextBox().GetComponent<TMP_InputField>().ActivateInputField();
+        FocusInputTextBox();
+
+        Sewer sewer = new Sewer(199, 199);
+        sewer.Generate(sewer.At(Vector2.zero), -1, 10, 2);
     }
 
     // Update is called once per frame
