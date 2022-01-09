@@ -14,11 +14,18 @@ public class Word
 		description = "";
     }
 
-	public Word(string w)
+	public Word(string w, List<string> s)
 	{
 		word = w;
-		synonyms = new List<string>();
+		synonyms = s;
 		description = "";
+	}
+
+	public Word(string w, List<string> s, string d)
+	{
+		word = w;
+		synonyms = s;
+		description = d;
 	}
 
 	public static string Normalize(string s)
