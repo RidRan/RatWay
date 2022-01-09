@@ -8,13 +8,29 @@ public class GameController : MonoBehaviour
     public Word difficulty;
     public bool prompted = false;
     public Vector2 playerPosition = Vector2.zero;
+    Sewer sewer;
+
+    private string[] directions =
+    {
+        "North",
+        "Northeast",
+        "East",
+        "Southeast",
+        "South",
+        "Southwest",
+        "West",
+        "Northwest"
+    };
+
+    Parser p;
     // Start is called before the first frame update
     void Start()
     {
         FocusInputTextBox();
 
-        Sewer sewer = new Sewer(199, 199);
+        sewer = new Sewer(199, 199);
         sewer.Generate(sewer.At(Vector2.zero), -1, 10, 2);
+        p = new Parser();
     }
 
     // Update is called once per frame
@@ -22,15 +38,54 @@ public class GameController : MonoBehaviour
     {
         if (!prompted)
         {
-            AddOutputText("Haha you in the sewer\n");
+            string output = "You can go";
+            SewerRoom current = sewer.At(playerPosition);
+            for (int i = 0; i < 8; i++)
+            {
+                if (current[i] != null)
+                {
+                    output += " " + directions[i];
+                }
+            }
+            output += ".";
+            AddOutputText(output + "\n");
             prompted = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
-            if (GetInputText() != "")
+            string input = GetInputText().Trim();
+            if (input != "")
             {
-                AddOutputText("> " + GetInputText() + "\n");
+                string[] response = p.Parse(input).Split(' ');
+                string output = "";
+
+                switch(response[0])
+                {
+                    case "move":
+                        if (response[1] == "not")
+                        {
+                            output += "You would walk out the room, but you are not sure which way to go.";
+                        } 
+                        else if (response[1] == "none")
+                        {
+                            output += "You would walk out the room, but you forget which way to go.";
+                        } 
+                        else
+                        {
+                            Vector2 direction = new Vector2(int.Parse(response[1]), int.Parse(response[2]));
+
+                            playerPosition += direction;
+                            output += "You walk " + directions[SewerRoom.VectorToIndex(direction)] + "out the room.";
+                        }
+                        break;
+                    case "not":
+                        output += "You are not sure what to do.";
+                        break;
+                }
+
+                AddOutputText("> " + output + "\n");
                 SetInputText("");
+                prompted = false;
             }
             FocusInputTextBox();
         }

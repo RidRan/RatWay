@@ -6,8 +6,8 @@ public class Direction : Word
 {
     public Vector2 vector;
 
-    public Direction(List<string> s, string d, Vector2 v) 
-        : base(s, d)
+    public Direction(string w, Vector2 v) 
+        : base(w)
     {
         vector = v;
     }

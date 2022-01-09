@@ -28,6 +28,11 @@ public class Word
 		description = d;
 	}
 
+	public void AddSynonym(string syn)
+    {
+		synonyms.Add(syn);
+    }
+
 	public static string Normalize(string s)
     {
 		return s.ToLower().Trim();
