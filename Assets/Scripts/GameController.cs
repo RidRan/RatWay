@@ -5,6 +5,9 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    public TextMeshProUGUI outputText;
+    public TMP_InputField inputText;
+
     public Word difficulty;
     public bool prompted = false;
     public Vector2 playerPosition = Vector2.zero;
@@ -38,22 +41,22 @@ public class GameController : MonoBehaviour
     {
         if (!prompted)
         {
-            string output = "You can go";
-            SewerRoom current = sewer.At(playerPosition);
-            for (int i = 0; i < 8; i++)
-            {
-                if (current[i] != null)
-                {
-                    output += " " + directions[i];
-                }
-            }
-            output += ".";
-            AddOutputText(output + "\n");
-            prompted = true;
+            //string output = "You can go";
+            //SewerRoom current = sewer.At(playerPosition);
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    if (current[i] != null)
+            //    {
+            //        output += " " + directions[i];
+            //    }
+            //}
+            //output += ".";
+            //AddOutputText(output + "\n");
+            //prompted = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
-            string input = GetInputText().Trim();
+            string input = inputText.text.Trim();
             if (input != "")
             {
                 string[] response = p.Parse(input).Split(' ');
@@ -92,25 +95,16 @@ public class GameController : MonoBehaviour
     }
 
     #region Utils
-    GameObject GetInputTextBox()
-    {
-        return gameObject.transform.GetChild(1).gameObject;
-    }
-
-    string GetInputText()
-    {
-        return GetInputTextBox().GetComponent<TMP_InputField>().text;
-    }
 
     void SetInputText(string s)
     {
-        GetInputTextBox().GetComponent<TMP_InputField>().text = s;
+        inputText.text = s;
     }
 
     void FocusInputTextBox()
     {
-        GetInputTextBox().GetComponent<TMP_InputField>().Select();
-        GetInputTextBox().GetComponent<TMP_InputField>().ActivateInputField();
+        inputText.Select();
+        inputText.ActivateInputField();
     }
 
     GameObject GetOutputTextBox()
@@ -120,7 +114,7 @@ public class GameController : MonoBehaviour
 
     string GetOutputText()
     {
-        return GetOutputTextBox().GetComponent<TextMeshProUGUI>().text;
+        return outputText.text;
     }
 
     void SetOutputText(string s)

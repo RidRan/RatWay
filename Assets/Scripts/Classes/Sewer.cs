@@ -69,6 +69,10 @@ public class Sewer
 
 			Generate(next, SewerRoom.Opposite(index), length - 1, branches);
         }
+
+		// attach sewer room graphic to each node
+		// transform coordinates and display graphic
+		// show connections between nodes
     }
 
 	public void Clear()
